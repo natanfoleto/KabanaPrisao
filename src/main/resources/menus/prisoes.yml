@@ -1,0 +1,21 @@
+Nome: '§8Prisões criadas'
+Tamanho: 27
+# Configuração padrão das novas prisões
+Itens:
+  Name: '§c{name}'
+  Id: 35
+  Data: 1
+  Lore:
+    - ''
+    - '{status}'
+    - ''
+    - '§7Botão §fesquerdo§7 para teleportar.'
+    - '§7Botão §fdireito§7 para deletar.'
+# Botão voltar ao menu anterios
+Voltar:
+  Slot: 26
+  Name: '§cVoltar'
+  Id: 262
+  Data: 0
+  Lore:
+    - '§7Clique para voltar ao menu anterior.'

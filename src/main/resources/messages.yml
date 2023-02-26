@@ -1,0 +1,37 @@
+# Mensagens do plugin
+Plugin:
+  Recarregar: '§7Iniciando regarregamento do plugin'
+  Recarregado: '§aPlugin recarregado com sucesso.'
+
+# Mensagens ao gerenciar prisões
+Prisao:
+  Existe: '§cEsta prisão já existe.'
+  NaoExiste: '§cEsta prisão não existe.'
+  Criada: '§aPrisão criada com sucesso.'
+  Deletada: '§aPrisão deletada com sucesso.'
+  Teleportado: '§aVocê foi teleportado até a prisão.'
+  LocalSaida: '§aLocal de saída setado com sucesso.'
+  NenhumLocalSaida: '§cNenhum local de saída foi setado ainda.'
+  Prendeu: '§aVocê prendeu o jogador na §7{prision}.'
+  Soltou: '§aVocê soltou o jogador.'
+  JogadorJaPreso: '§cEste jogador já está preso.'
+  JogadorJaSolto: '§cEste jogador não está preso.'
+  FoiPreso: '§7Você foi preso por §c{time}.'
+  FoiSolto: '§aSeu tempo de prisão acabou e você foi solto da masmorra.'
+  FoiSoltoPelaStaff: '§aVocê foi solto da prisão pelas autoridades.'
+  AlertaPreso:
+    - '§7O jogador §c{name} §7foi preso por §c{time}.'
+    - '§7Não seguiu as regras e foi preso!'
+  AlertaSolto:
+    - '§7O jogador §a{name} §7foi solto.'
+  NenhumaPrisaoVazia: '§cNenhuma cela vazia no momento.'
+  NenhumaPrisaoCadastrada: '§cNenhuma prisão foi cadastrada ainda.'
+
+# Outras mensagens
+Outras:
+  PresoEntrou: '§7O preso §c{name} §7entrou no servidor.'
+  PresoSaiu: '§7O preso §c{name} §7saiu no servidor.'
+  JogadorOffline: '§cEste jogador está offline.'
+  SemPermissao: '§cVocê não tem permissão para executar este comando.'
+  ComandosBloqueados: '§cVocê não pode executar comandos enquanto estiver preso.'
+  ComandoBloqueado: '§cVocê não pode executar o comando {command} enquanto estiver preso.'

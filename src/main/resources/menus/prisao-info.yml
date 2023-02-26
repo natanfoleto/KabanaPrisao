@@ -1,0 +1,36 @@
+Nome: '§8Minhas prisões'
+Tamanho: 27
+Itens:
+  MinhasInformacoes:
+    Slot: 10
+    Id: 397
+    Data: 3
+    Name: '§cMinhas informações'
+    Lore:
+      - ''
+      - '§7Situação atual'
+      - '{status}'
+      - ''
+      - '§7Foi preso §c{amount} §7vezes.'
+  TempoDePrisao:
+    Slot: 13
+    Id: 347
+    Data: 0
+    Name: '§cTempo de prisão'
+    Lore:
+      - ''
+      - '§7Você foi preso por §c{time}.'
+      - '§7Falta §c{timeLeft} §7para você ser solto.'
+  MinhasDividas:
+    Slot: 16
+    Id: 388
+    Data: 0
+    Name: '§cMinhas dividas'
+    Lore:
+      - ''
+      - '§cMulta'
+      - '§7Você pagou §c1K §7de multa.'
+      - ''
+      - '§aFiança'
+      - '§7O valor da fiança -> §c1K'
+      - '§7/fianca para pagar a fiança.'

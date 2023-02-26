@@ -1,0 +1,7 @@
+name: KabanaPrisao
+version: '${project.version}'
+main: com.github.natanfoleto.kabanaprisao.KabanaPrisao
+api-version: 1.8.8
+authors: [ NatanFoleto ]
+description: Plugin de prisão para o servidor RankUP Empire - Kabana
+website: kabana-mc.net

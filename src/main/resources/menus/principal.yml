@@ -1,0 +1,17 @@
+Nome: '§8Sistema de prisão'
+Tamanho: 27
+Itens:
+  Prisoes:
+    Slot: 11
+    Id: 101
+    Data: 0
+    Name: '§aPrisões do servidor'
+    Lore:
+      - '§7Clique para gerenciar as prisões.'
+  Presos:
+    Slot: 15
+    Id: 386
+    Data: 0
+    Name: '§cJogadores presos'
+    Lore:
+      - '§7Clique para ver os jogadores presos.'

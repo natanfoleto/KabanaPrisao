@@ -1,0 +1,63 @@
+# Arquivo informativo
+# Nenhuma alteração feita aqui, irá mudar os comandos do plugin
+# Apenas para ensinar o seu uso
+
+# Uso dos parâmetros
+# <param> -> Obrigatório passar
+# [param] -> Opcional passar
+
+# Uso do parâmetro de tempo
+# m  -> minutos
+# h -> horas
+# d  -> dias
+# mm -> mês
+# Exemplo: /prender Lebroun_ 1d
+
+Comandos:
+  setprision:
+    Descricao: 'Cria uma prisão'
+    Aliases: 'setprisao|addprisao|adicionarprisao'
+    Permissao: 'kabanaprisao.setprision'
+    Uso: '/setprisao <nome>'
+
+  unsetprision:
+    Descricao: 'Deleta uma prisão'
+    Aliases: 'unsetprisao|delprisao|deletarprisao'
+    Permissao: 'kabanaprisao.unsetprision'
+    Uso: '/delprisao <nome>'
+
+  prision:
+    Descricao: 'Teleporta até uma prisão'
+    Aliases: 'prisao|goprisao|irprisao'
+    Permissao: 'kabanaprisao.prision'
+    Uso: '/prisao <nome>'
+
+  prisions:
+    Descricao: 'Abre o menu de prisões|presos'
+    Aliases: 'prisoes|presos'
+    Permissao: 'kabanaprisao.prisions'
+    Uso: '/prisoes'
+
+  arrest:
+    Descricao: 'Prende um jogador'
+    Aliases: 'prender'
+    Permissao: 'kabanaprisao.arrest'
+    Uso: '/prender <jogador> <tempo> [prisao]'
+
+  release:
+    Descricao: 'Solta um preso'
+    Aliases: 'soltar'
+    Permissao: 'kabanaprisao.release'
+    Uso: '/soltar <jogador>'
+
+  setexit:
+    Descricao: 'Seta o local de saída dos presos'
+    Aliases: 'setsaida|addsaida'
+    Permissao: 'kabanaprisao.setexit'
+    Uso: '/setsaida'
+
+  kabanaprisao:
+    Descricao: 'Recarrega o plugin KabanaPrisao'
+    Aliases: 'prisaoreload|reloadprisao'
+    Permissao: 'kabanaprisao.reload'
+    Uso: '/kabanaprisao'

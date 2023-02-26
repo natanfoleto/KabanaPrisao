@@ -1,0 +1,22 @@
+Nome: '§8Jogadores presos'
+Tamanho: 27
+# Configuração padrão das novas prisões
+Itens:
+  Name: '§c{name}'
+  Id: 397
+  Data: 3
+  Lore:
+    - ''
+    - '§7Preso por §c{time}.'
+    - '§7Faltam §c{timeLeft} §7para ser solto.'
+    - ''
+    - '§7Botão §fdireito§7 para solta-lo.'
+# Botão voltar ao menu anterios
+Voltar:
+  Slot: 26
+  Name: '§cVoltar'
+  Id: 262
+  Data: 0
+  Lore:
+    - ''
+    - '§7Clique para voltar ao menu anterior.'

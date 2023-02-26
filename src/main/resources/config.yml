@@ -1,0 +1,48 @@
+# Configurações do KabanaPrisao
+
+# Database
+Database:
+  Type: "MYSQL" # O plugin só tem suporte para o tipo MYSQL
+  Host: "localhost:3306"
+  Database: "kabana"
+  User: "root"
+  Password: "143010"
+
+
+# Gerais
+
+# Mandar mensagem para todos quando um jogador for preso
+AlertaJogadorPreso: true
+# Mandar mensagem para todos quando um jogador for solto
+AlertaJogadorSolto: true
+# Mandar mensagem para todos quando um preso entrar no servidor
+AlertaPresoEntrou: true
+# Mandar mensagem para todos quando um preso sair no servidor
+AlertaPresoSaiu: true
+
+# Se 'true' o tempo de prisão dos jogadores vão diminuir somente se eles estiverem online
+DiminuirTempoOnline: true
+
+# Bloquear todos os comandos para um jogador preso
+BloquearTodosComandos: false
+
+# Chave para permitir ou bloquear comandos de um jogador preso
+# 'permitir' -> Usar a lista de comandos permitidos
+# 'negar' -> Usar a lista de comandos bloqueados
+PermitirOuNegar: 'permitir'
+
+# Comandos permitidos para jogadores presos
+ComandosPermitidos:
+  - '/prisioninfo'
+  - '/prisaoinfo'
+  - '/infoprisao'
+  - '/money'
+
+# Comandos bloqueados para jogadores presos
+ComandosBloqueados:
+  - '/spawn'
+
+StatusOcupada: '§aPrisão livre'
+StatusLivre: '§cPrisão ocupada'
+StatusPreso: '§cPreso'
+StatusSolto: '§aSolto'
