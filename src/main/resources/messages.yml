@@ -1,3 +1,11 @@
+# Placeholders
+##
+# {prision} = Nome da prisão
+# {time} = Tempo de prisão
+# {name} = Nome do jogador
+# {command} = Comando enviado dentro da prisão
+# {reason} = Motivo da prisão
+
 # Mensagens do plugin
 Plugin:
   Recarregar: '§7Iniciando regarregamento do plugin'
@@ -9,6 +17,8 @@ Prisao:
   NaoExiste: '§cEsta prisão não existe.'
   Criada: '§aPrisão criada com sucesso.'
   Deletada: '§aPrisão deletada com sucesso.'
+  StatusOcupada: '§aPrisão livre'
+  StatusLivre: '§cPrisão ocupada'
   Teleportado: '§aVocê foi teleportado até a prisão.'
   LocalSaida: '§aLocal de saída setado com sucesso.'
   NenhumLocalSaida: '§cNenhum local de saída foi setado ainda.'
@@ -16,22 +26,33 @@ Prisao:
   Soltou: '§aVocê soltou o jogador.'
   JogadorJaPreso: '§cEste jogador já está preso.'
   JogadorJaSolto: '§cEste jogador não está preso.'
+  NenhumaPrisaoVazia: '§cNenhuma cela vazia no momento.'
+  NenhumaPrisaoCadastrada: '§cNenhuma prisão foi cadastrada ainda.'
+  TempoMaiorQueZero: '§cO tempo de prisão precisa ser maior que 0.'
+  TempoCorreto:
+    - '§cO tempo está incorreto. Use um dos exemplos abaixo:'
+    - '§71m ⇒ 1 minuto'
+    - '§71h ⇒ 1 hora'
+    - '§71d ⇒ 1 dia'
+    - '§71mm ⇒ 1 mês'
+
+Preso:
+  StatusPreso: '§cPreso'
+  StatusSolto: '§aSolto'
+  PresoEntrou: '§7O preso §c{name} §7entrou no servidor.'
+  PresoSaiu: '§7O preso §c{name} §7saiu no servidor.'
   FoiPreso: '§7Você foi preso por §c{time}.'
   FoiSolto: '§aSeu tempo de prisão acabou e você foi solto da masmorra.'
   FoiSoltoPelaStaff: '§aVocê foi solto da prisão pelas autoridades.'
   AlertaPreso:
     - '§7O jogador §c{name} §7foi preso por §c{time}.'
-    - '§7Não seguiu as regras e foi preso!'
+    - '§7Motivo: §c{reason}'
   AlertaSolto:
     - '§7O jogador §a{name} §7foi solto.'
-  NenhumaPrisaoVazia: '§cNenhuma cela vazia no momento.'
-  NenhumaPrisaoCadastrada: '§cNenhuma prisão foi cadastrada ainda.'
 
 # Outras mensagens
 Outras:
-  PresoEntrou: '§7O preso §c{name} §7entrou no servidor.'
-  PresoSaiu: '§7O preso §c{name} §7saiu no servidor.'
   JogadorOffline: '§cEste jogador está offline.'
   SemPermissao: '§cVocê não tem permissão para executar este comando.'
-  ComandosBloqueados: '§cVocê não pode executar comandos enquanto estiver preso.'
-  ComandoBloqueado: '§cVocê não pode executar o comando {command} enquanto estiver preso.'
+  ComandosBloqueados: '§cVocê não pode executar comandos se estiver preso.'
+  ComandoBloqueado: '§cVocê não pode executar o comando {command} se estiver preso.'

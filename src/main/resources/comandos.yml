@@ -26,10 +26,10 @@ Comandos:
     Permissao: 'kabanaprisao.unsetprision'
     Uso: '/delprisao <nome>'
 
-  prision:
+  goprision:
     Descricao: 'Teleporta até uma prisão'
-    Aliases: 'prisao|goprisao|irprisao'
-    Permissao: 'kabanaprisao.prision'
+    Aliases: 'goprisao|irprisao'
+    Permissao: 'kabanaprisao.goprision'
     Uso: '/prisao <nome>'
 
   prisions:
@@ -42,7 +42,7 @@ Comandos:
     Descricao: 'Prende um jogador'
     Aliases: 'prender'
     Permissao: 'kabanaprisao.arrest'
-    Uso: '/prender <jogador> <tempo> [prisao]'
+    Uso: '/prender <jogador> <tempo> [razao]'
 
   release:
     Descricao: 'Solta um preso'
@@ -55,6 +55,12 @@ Comandos:
     Aliases: 'setsaida|addsaida'
     Permissao: 'kabanaprisao.setexit'
     Uso: '/setsaida'
+
+  prision:
+    Descricao: 'Abre as informações de prisão do jogador'
+    Aliases: 'prisao|infoprisao|prisaoinfo|prisioninfo|infoprision'
+    Permissao: 'kabanaprisao.prision'
+    Uso: '/prision'
 
   kabanaprisao:
     Descricao: 'Recarrega o plugin KabanaPrisao'

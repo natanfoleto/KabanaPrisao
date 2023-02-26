@@ -1,23 +1,21 @@
 package com.github.natanfoleto.kabanaprisao.commands;
 
+import com.github.natanfoleto.kabanaprisao.database.repositories.PrisonerLogRepository;
 import com.github.natanfoleto.kabanaprisao.database.repositories.PrisonerRepository;
 import com.github.natanfoleto.kabanaprisao.entities.Prision;
 import com.github.natanfoleto.kabanaprisao.entities.Prisoner;
 import com.github.natanfoleto.kabanaprisao.schedulers.PrisonCooldown;
 import com.github.natanfoleto.kabanaprisao.storages.PrisionStorage;
+import com.github.natanfoleto.kabanaprisao.storages.PrisonersLogStorage;
 import com.github.natanfoleto.kabanaprisao.storages.PrisonersStorage;
 import me.saiintbrisson.minecraft.command.annotation.Command;
-import me.saiintbrisson.minecraft.command.annotation.Optional;
 import me.saiintbrisson.minecraft.command.command.Context;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.github.natanfoleto.kabanaprisao.loaders.SettingsLoader.*;
@@ -27,26 +25,26 @@ public class Arrest {
             name = "arrest",
             aliases = {"prender"},
             permission = "kabanaprisao.arrest",
-            usage = "prender <jogador> <tempo> [prisao]"
+            usage = "prender <jogador> <tempo> [razao]"
     )
 
     public void onArrest(
             Context<CommandSender> context,
             String targetName,
-            String time,
-            @Optional String prisionName
+            String time
     ) {
         CommandSender sender = context.getSender();
 
-        if (time.equals("0")) return; // Setar tempo permanente
+        if (time.equals("0")) {
+            sender.sendMessage(getMessages().getString("Prisao.TempoMaiorQueZero"));
+
+            return;
+        }
 
         int prisonTime = parseTimeToMinutes(time);
 
         if (prisonTime == 0) {
-            context.sendMessage("§cO tempo está incorreto. Use um dos exemplos abaixo:");
-            context.sendMessage("§71m -> 1 minuto");
-            context.sendMessage("§71d -> 1 dia");
-            context.sendMessage("§71mm -> 1 mês");
+            getMessages().getStringList("Prisao.TempoCorreto").forEach(context::sendMessage);
 
             return;
         }
@@ -71,35 +69,34 @@ public class Arrest {
 
         Prision prision = null;
 
-        if (prisionName != null) {
-            prision = PrisionStorage.getPrisions().get(prisionName);
+        for (Prision targetPrision : PrisionStorage.getPrisions().values()) {
+            boolean isUsed = false;
 
-            if (prision == null) {
-                sender.sendMessage(getMessages().getString("Prisao.NaoExiste"));
-
-                return;
-            }
-        }
-
-        if (prision == null) {
-            for (Prision targetPrision : PrisionStorage.getPrisions().values()) {
-                boolean isUsed = false;
-
-                for (Prisoner prisoner : PrisonersStorage.getPrisoners().values()) {
-                    if (targetPrision == prisoner.getPrision()) {
-                        isUsed = true;
-                        break;
-                    }
+            for (Prisoner prisoner : PrisonersStorage.getPrisoners().values()) {
+                if (targetPrision == prisoner.getPrision()) {
+                    isUsed = true;
+                    break;
                 }
-
-                if (!isUsed)
-                    prision = targetPrision;
             }
+
+            if (!isUsed)
+                prision = targetPrision;
         }
 
         if (prision == null) {
             sender.sendMessage(getMessages().getString("Prisao.NenhumaPrisaoVazia"));
             return;
+        }
+
+        String reason = "§cMotivo não informado.";
+
+        if (context.getArgs().length > 2) {
+            List<String> newArgs = new LinkedList<>(Arrays.asList(context.getArgs()));
+
+            newArgs.remove(0);
+            newArgs.remove(0);
+
+            reason = String.join(" ", newArgs);
         }
 
         List<Integer> slots = new ArrayList<>();
@@ -122,17 +119,25 @@ public class Arrest {
                 target,
                 prision,
                 iconSlot.intValue(),
-                prisonTime
+                prisonTime,
+                reason
         );
 
         PrisonersStorage.setPrisoner(targetName, prisoner);
-        PrisonerRepository.createPrisoner(prisoner);
         PrisonCooldown.create(targetName, prisonTime);
+        PrisonerRepository.createPrisoner(prisoner);
+
+        if (PrisonerLogRepository.getCountUserByName(targetName) == 0)
+            PrisonerLogRepository.createPrisonerLog(targetName);
+        else {
+            PrisonersLogStorage.incrementTimesArrested(targetName);
+            PrisonerLogRepository.updateTimes(targetName);
+        }
 
         target.teleport(prision.getLocation());
 
         target.sendMessage(
-                getMessages().getString("Prisao.FoiPreso")
+                getMessages().getString("Preso.FoiPreso")
                         .replace("{time}", time)
         );
 
@@ -144,11 +149,12 @@ public class Arrest {
         );
 
         if (getConfig().getBoolean("AlertaJogadorPreso"))
-            for (String item : getMessages().getStringList("Prisao.AlertaPreso")) {
+            for (String item : getMessages().getStringList("Preso.AlertaPreso")) {
                 Bukkit.broadcastMessage(
                         item
                                 .replace("{name}", targetName)
                                 .replace("{time}", time)
+                                .replace("{reason}", reason)
                 );
             }
     }

@@ -19,3 +19,8 @@ Voltar:
   Data: 0
   Lore:
     - '§7Clique para voltar ao menu anterior.'
+
+# Placeholders
+##
+# {name} = Nome da prisão
+# {status} = Prisão ocupada ou livre

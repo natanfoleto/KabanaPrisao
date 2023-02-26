@@ -10,6 +10,11 @@ Itens:
     - '§7Preso por §c{time}.'
     - '§7Faltam §c{timeLeft} §7para ser solto.'
     - ''
+    - '§7Motivo da prisão'
+    - '§c{reason}'
+    - ''
+    - '§7Foi preso §c{amount} §7veze(s).'
+    - ''
     - '§7Botão §fdireito§7 para solta-lo.'
 # Botão voltar ao menu anterios
 Voltar:
@@ -20,3 +25,11 @@ Voltar:
   Lore:
     - ''
     - '§7Clique para voltar ao menu anterior.'
+
+# Placeholders
+##
+# {name} = Nome do jogador
+# {time} = Tempo de prisão
+# {timeLeft} = Tempo restante de prisão
+# {amount} = Quantidade de vezes preso
+# {reason} = Motivo da prisão

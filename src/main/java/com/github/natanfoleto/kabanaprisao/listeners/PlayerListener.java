@@ -17,7 +17,7 @@ public class PlayerListener implements Listener {
         if (PrisonersStorage.getPrisoners().containsKey(player.getName())) {
             if (getConfig().getBoolean("AlertaPresoEntrou"))
                 Bukkit.broadcastMessage(
-                        getMessages().getString("Outras.PresoEntrou")
+                        getMessages().getString("Preso.PresoEntrou")
                                 .replace("{name}", player.getName())
                 );
 
@@ -35,20 +35,18 @@ public class PlayerListener implements Listener {
         if (PrisonersStorage.getPrisoners().containsKey(player.getName())) {
             if (getConfig().getBoolean("AlertaPresoSaiu"))
                 Bukkit.broadcastMessage(
-                        getMessages().getString("Outras.PresoSaiu")
+                        getMessages().getString("Preso.PresoSaiu")
                                 .replace("{name}", player.getName())
                 );
         }
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event) {
-
-    }
-
-    @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
+
+        if (player.hasPermission(getConfig().getString("PermissaoIgnorarRegraComandos")))
+            return;
 
         if (PrisonersStorage.getPrisoners().containsKey(player.getName())) {
             if (getConfig().getBoolean("BloquearTodosComandos")) {

@@ -9,8 +9,8 @@ import org.bukkit.inventory.Inventory;
 
 public class PrisionInfo {
     @Command(
-            name = "prisioninfo",
-            aliases = {"prisaoinfo", "infoprisao"},
+            name = "prision",
+            aliases = {"prisao", "infoprisao", "prisaoinfo", "prisioninfo", "infoprision"},
             permission = "kabanaprisao.prisioninfo",
             target = CommandTarget.PLAYER
     )

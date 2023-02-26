@@ -60,6 +60,7 @@ public final class KabanaPrisao extends JavaPlugin {
         PrisionLoader.run();
         DatabaseLoader.run();
         PrisonerLoader.run();
+        PrisonerLogLoader.run();
     }
 
     public static KabanaPrisao getInstance() { return getPlugin(KabanaPrisao.class); }

@@ -9,13 +9,15 @@ public class Prisoner {
     private int iconSlot;
     private int prisionTime;
     private int timeLeft;
+    private String reason;
 
     public Prisoner(
             String name,
             Player player,
             Prision prision,
             int iconSlot,
-            int prisionTime
+            int prisionTime,
+            String reason
     ) {
         this.name = name;
         this.player = player;
@@ -23,6 +25,7 @@ public class Prisoner {
         this.iconSlot = iconSlot;
         this.prisionTime = prisionTime;
         this.timeLeft = 0;
+        this.reason = reason;
     }
 
     public String getName() { return name; }
@@ -42,4 +45,7 @@ public class Prisoner {
 
     public int getTimeLeft() { return timeLeft; }
     public void setTimeLeft(int timeLeft) { this.timeLeft = timeLeft; }
+
+    public String getReason() { return reason; }
+    public void setReason(String reason) { this.reason = reason; }
 }

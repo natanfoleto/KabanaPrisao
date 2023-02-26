@@ -87,7 +87,7 @@ public class InventoryListener implements Listener {
                 // Clicou numa prisão com botão esquerdo (Teleporta até a prisão)
                 if (e.isLeftClick()) {
                     p.closeInventory();
-                    p.chat("/prisao " + prision.getName().toLowerCase());
+                    p.chat("/goprision " + prision.getName());
                     p.playSound(p.getLocation(), Sound.CLICK, 1, 2f);
                 }
 
@@ -136,14 +136,14 @@ public class InventoryListener implements Listener {
                     }
 
                     PrisonersStorage.delPrisoner(prisoner.getName());
-                    PrisonerRepository.deletePrisoner(prisoner.getName());
+                    PrisonerRepository.updateStatus(prisoner.getName());
                     e.getInventory().setItem(e.getSlot(), null);
 
                     Player target = Bukkit.getPlayer(prisoner.getName());
 
                     if (target != null) {
                         target.teleport(PrisionStorage.getExitLocation());
-                        target.sendMessage(getMessages().getString("Prisao.FoiSoltoPelaStaff"));
+                        target.sendMessage(getMessages().getString("Preso.FoiSoltoPelaStaff"));
                         target.playSound(target.getLocation(), Sound.PORTAL_TRAVEL, 1, 2f);
                     }
 
@@ -151,7 +151,7 @@ public class InventoryListener implements Listener {
                     p.playSound(p.getLocation(), Sound.CLICK, 1, 2f);
 
                     if (getConfig().getBoolean("AlertaJogadorSolto"))
-                        for (String item : getMessages().getStringList("Prisao.AlertaSolto"))
+                        for (String item : getMessages().getStringList("Preso.AlertaSolto"))
                             Bukkit.broadcastMessage(item.replace("{name}", prisoner.getName()));
                 }
             }

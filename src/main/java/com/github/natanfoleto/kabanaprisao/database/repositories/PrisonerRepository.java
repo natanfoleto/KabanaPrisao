@@ -24,6 +24,8 @@ public class PrisonerRepository {
                     "`icon_slot` SMALLINT NOT NULL, " +
                     "`prision_time` int NOT NULL, " +
                     "`time_left` int NOT NULL, " +
+                    "`reason` VARCHAR(200), " +
+                    "`status` SMALLINT DEFAULT 1, " +
                     "PRIMARY KEY (`nome`, `prisao`) " +
                     ")"
             );
@@ -36,7 +38,7 @@ public class PrisonerRepository {
         }
     }
 
-    public static Set<Prisoner> getAllPrisoners() {
+    public static Set<Prisoner> getAllEnabledPrisoners() {
         Connection conn = DatabaseFactory.createConnection();
 
         PreparedStatement stmt = null;
@@ -45,7 +47,7 @@ public class PrisonerRepository {
         Set<Prisoner> prisoners = new HashSet<>();
 
         try {
-            stmt = conn.prepareStatement("SELECT * FROM presos");
+            stmt = conn.prepareStatement("SELECT * FROM presos WHERE `status` = 1");
 
             rs = stmt.executeQuery();
 
@@ -66,8 +68,8 @@ public class PrisonerRepository {
 
         try {
             stmt = conn.prepareStatement("REPLACE INTO presos" +
-                    "(`nome`, `prisao`, `icon_slot`, `prision_time`, `time_left`) " +
-                    "VALUES(?, ?, ?, ?, ?)"
+                    "(`nome`, `prisao`, `icon_slot`, `prision_time`, `time_left`, `reason`) " +
+                    "VALUES(?, ?, ?, ?, ?, ?)"
             );
 
             stmt.setString(1, prisoner.getPlayer().getName());
@@ -75,6 +77,7 @@ public class PrisonerRepository {
             stmt.setInt(3, prisoner.getIconSlot());
             stmt.setInt(4, prisoner.getPrisionTime());
             stmt.setInt(5, prisoner.getPrisionTime());
+            stmt.setString(6, prisoner.getReason());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -84,13 +87,16 @@ public class PrisonerRepository {
         }
     }
 
-    public static void deletePrisoner(String name) {
+    public static void updateStatus(String name) {
         Connection conn = DatabaseFactory.createConnection();
 
         PreparedStatement stmt = null;
 
         try {
-            stmt = conn.prepareStatement("DELETE FROM presos WHERE `nome` = ?");
+            stmt = conn.prepareStatement("UPDATE presos SET " +
+                    "`status` = 0 " +
+                    "WHERE `nome` = ?"
+            );
 
             stmt.setString(1, name);
 

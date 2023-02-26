@@ -35,7 +35,7 @@ public class PrisonCooldown {
                     cooldowns.remove(name);
 
                     PrisonersStorage.delPrisoner(name);
-                    PrisonerRepository.deletePrisoner(name);
+                    PrisonerRepository.updateStatus(name);
 
                     Player target = Bukkit.getPlayer(name);
 
@@ -43,12 +43,12 @@ public class PrisonCooldown {
                         if (PrisionStorage.getExitLocation() != null)
                             target.teleport(PrisionStorage.getExitLocation());
 
-                        target.sendMessage(getMessages().getString("Prisao.FoiSolto"));
+                        target.sendMessage(getMessages().getString("Preso.FoiSolto"));
                         target.playSound(target.getLocation(), Sound.PORTAL_TRAVEL, 1, 2f);
                     }
 
                     if (getConfig().getBoolean("AlertaJogadorSolto"))
-                        for (String item : getMessages().getStringList("Prisao.AlertaSolto"))
+                        for (String item : getMessages().getStringList("Preso.AlertaSolto"))
                             Bukkit.broadcastMessage(item.replace("{name}", name));
 
                     tasks.remove(name);

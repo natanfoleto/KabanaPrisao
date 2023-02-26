@@ -8,7 +8,6 @@ Database:
   User: "root"
   Password: "143010"
 
-
 # Gerais
 
 # Mandar mensagem para todos quando um jogador for preso
@@ -27,12 +26,18 @@ DiminuirTempoOnline: true
 BloquearTodosComandos: false
 
 # Chave para permitir ou bloquear comandos de um jogador preso
-# 'permitir' -> Usar a lista de comandos permitidos
-# 'negar' -> Usar a lista de comandos bloqueados
+# 'permitir' ⇒ Usar a lista de comandos permitidos
+# 'negar' ⇒ Usar a lista de comandos bloqueados
+
 PermitirOuNegar: 'permitir'
+
+# Se um jogador tiver essa permissão, a regra de bloquear comandos não valerá para ele
+PermissaoIgnorarRegraComandos: 'kabanaprisao.commands.bypass'
 
 # Comandos permitidos para jogadores presos
 ComandosPermitidos:
+  - '/prision'
+  - '/prisao'
   - '/prisioninfo'
   - '/prisaoinfo'
   - '/infoprisao'
@@ -42,7 +47,5 @@ ComandosPermitidos:
 ComandosBloqueados:
   - '/spawn'
 
-StatusOcupada: '§aPrisão livre'
-StatusLivre: '§cPrisão ocupada'
-StatusPreso: '§cPreso'
-StatusSolto: '§aSolto'
+# Mensagens de status dos menus
+

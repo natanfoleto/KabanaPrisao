@@ -12,7 +12,7 @@ public class PrisonerManager {
     public static void createPrisonersStorage() {
         Bukkit.getConsoleSender().sendMessage("§f[KabanaPrisao] Carregando prisioneiros.");
 
-        Set<Prisoner> prisoners = PrisonerRepository.getAllPrisoners();
+        Set<Prisoner> prisoners = PrisonerRepository.getAllEnabledPrisoners();
 
         if (prisoners.isEmpty()) {
             Bukkit.getConsoleSender().sendMessage("§f[KabanaPrisao] §cNenhum prisioneiro no servidor.");

@@ -4,6 +4,7 @@ import com.github.natanfoleto.kabanaprisao.entities.Prision;
 import com.github.natanfoleto.kabanaprisao.entities.Prisoner;
 import com.github.natanfoleto.kabanaprisao.schedulers.PrisonCooldown;
 import com.github.natanfoleto.kabanaprisao.storages.PrisionStorage;
+import com.github.natanfoleto.kabanaprisao.storages.PrisonersLogStorage;
 import com.github.natanfoleto.kabanaprisao.storages.PrisonersStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -74,10 +75,23 @@ public class InventoryUtils {
             )
                 continue;
 
+            boolean isBusy = true;
+
+            for (Prisoner prisoner : PrisonersStorage.getPrisoners().values())
+                if (prisoner.getPrision() == prision) {
+                    isBusy = false;
+                    break;
+                }
+
+            String isBusyText =
+                    isBusy ?
+                            getMessages().getString("Prisao.StatusOcupada") :
+                            getMessages().getString("Prisao.StatusLivre");
+
             List<String> lore = new ArrayList<>();
 
             for (String item : getPrisoes().getStringList("Itens.Lore"))
-                lore.add(item.replace("{status}", "§cPrisão ocupada"));
+                lore.add(item.replace("{status}", isBusyText));
 
             ItemStack prisonIcon = ItemUtils.createItemMenu(
                     getPrisoes().getString("Itens.Name").replace("{name}", prision.getName()),
@@ -117,6 +131,7 @@ public class InventoryUtils {
 
             int prisonTime = prisoner.getPrisionTime();
             int timeLeft = PrisonCooldown.getCooldown(prisoner.getName());
+            int timesArrested = PrisonersLogStorage.getPrisonersLog().get(prisoner.getName()).getTimesArrested();
 
             List<String> lorePrisionTime = new ArrayList<>();
 
@@ -125,6 +140,8 @@ public class InventoryUtils {
                         item
                                 .replace("{time}", getPrisonTimeText(prisonTime))
                                 .replace("{timeLeft}", getPrisonTimeText(timeLeft))
+                                .replace("{amount}", String.valueOf(timesArrested))
+                                .replace("{reason}", prisoner.getReason())
                 );
             }
 
@@ -150,8 +167,15 @@ public class InventoryUtils {
 
         String isArrested =
                 PrisonersStorage.getPrisoners().containsKey(player.getName()) ?
-                        getConfig().getString("StatusPreso") :
-                        getConfig().getString("StatusSolto");
+                        getMessages().getString("Preso.StatusPreso") :
+                        getMessages().getString("Preso.StatusSolto");
+
+        String reason =
+                PrisonersStorage.getPrisoners().containsKey(player.getName()) ?
+                        PrisonersStorage.getPrisoners().get(player.getName()).getReason() :
+                        "§aNenhum motivo, você está solto.";
+
+        int timesArrested = PrisonersLogStorage.getPrisonersLog().get(player.getName()).getTimesArrested();
 
         List<String> loreMyInformations = new ArrayList<>();
 
@@ -159,7 +183,8 @@ public class InventoryUtils {
             loreMyInformations.add(
                     item
                             .replace("{status}", isArrested)
-                            .replace("{amount}", "5")
+                            .replace("{amount}", String.valueOf(timesArrested))
+                            .replace("{reason}", reason)
             );
         }
 

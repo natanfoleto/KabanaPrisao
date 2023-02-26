@@ -37,20 +37,20 @@ public class Release {
         }
 
         PrisonersStorage.delPrisoner(targetName);
-        PrisonerRepository.deletePrisoner(targetName);
+        PrisonerRepository.updateStatus(targetName);
 
         Player target = Bukkit.getPlayer(targetName);
 
         if (target != null) {
             target.teleport(PrisionStorage.getExitLocation());
-            target.sendMessage(getMessages().getString("Prisao.FoiSoltoPelaStaff"));
+            target.sendMessage(getMessages().getString("Preso.FoiSoltoPelaStaff"));
             target.playSound(target.getLocation(), Sound.PORTAL_TRAVEL, 1, 2f);
         }
 
         sender.sendMessage(getMessages().getString("Prisao.Soltou"));
 
         if (getConfig().getBoolean("AlertaJogadorSolto"))
-            for (String item : getMessages().getStringList("Prisao.AlertaSolto"))
+            for (String item : getMessages().getStringList("Preso.AlertaSolto"))
                 Bukkit.broadcastMessage(item.replace("{name}", targetName));
     }
 }

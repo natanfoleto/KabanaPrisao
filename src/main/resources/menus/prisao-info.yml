@@ -11,6 +11,9 @@ Itens:
       - '§7Situação atual'
       - '{status}'
       - ''
+      - '§7Motivo da prisão'
+      - '§c{reason}'
+      - ''
       - '§7Foi preso §c{amount} §7vezes.'
   TempoDePrisao:
     Slot: 13
@@ -28,9 +31,12 @@ Itens:
     Name: '§cMinhas dividas'
     Lore:
       - ''
-      - '§cMulta'
-      - '§7Você pagou §c1K §7de multa.'
-      - ''
-      - '§aFiança'
-      - '§7O valor da fiança -> §c1K'
-      - '§7/fianca para pagar a fiança.'
+      - '§7Fiança'
+      - '§cEm breve!'
+
+# Placeholders
+##
+# {status} = Status de preso ou solto do jogador
+# {amount} = Quantidade de vezes que jogador foi preso
+# {time} = Tempo de prisão
+# {timeLeft} = Tempo restante de prisão

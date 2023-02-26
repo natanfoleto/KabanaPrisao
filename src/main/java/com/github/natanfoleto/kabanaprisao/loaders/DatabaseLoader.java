@@ -8,5 +8,6 @@ public class DatabaseLoader {
         DatabaseManager.createDatabase();
 
         PrisonerRepository.createTablePrisoners();
+        PrisonerLogRepository.createTablePrisonersLog();
     }
 }

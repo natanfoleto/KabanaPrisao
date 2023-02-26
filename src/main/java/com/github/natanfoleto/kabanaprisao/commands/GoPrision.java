@@ -11,11 +11,11 @@ import static com.github.natanfoleto.kabanaprisao.loaders.SettingsLoader.*;
 
 public class GoPrision {
     @Command(
-            name = "prision",
-            aliases = {"prisao", "goprisao", "irprisao"},
+            name = "goprision",
+            aliases = {"irprisao", "goprisao"},
             permission = "kabanaprisao.prision",
             target = CommandTarget.PLAYER,
-            usage = "prisao <nome>"
+            usage = "irprisao <nome>"
     )
 
     public void onGoPrision(
