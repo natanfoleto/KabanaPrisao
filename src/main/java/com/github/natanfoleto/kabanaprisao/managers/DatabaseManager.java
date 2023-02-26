@@ -26,6 +26,15 @@ public class DatabaseManager {
             database.setUrl(url);
         }
 
+        if (databaseType.equals("SQLITE")) {
+            String filename = getConfig().getString("Database.Sqlite.Filename");
+
+            String url = String.format("jdbc:sqlite:plugins/KabanaPrisao/database/%s", filename);
+
+            database.setFilnename(filename);
+            database.setUrl(url);
+        }
+
         DatabaseStorage.setDatabase(database);
     }
 }

@@ -2,11 +2,13 @@
 
 # Database
 Database:
-  Type: "MYSQL" # O plugin só tem suporte para o tipo MYSQL
+  Type: "SQLITE" # [SQLITE, MYSQL]
+  Sqlite:
+    Filename: "database.db"
   Host: "localhost:3306"
-  Database: "kabana"
-  User: "root"
-  Password: "143010"
+  Database: "database"
+  User: "user"
+  Password: "password"
 
 # Gerais
 

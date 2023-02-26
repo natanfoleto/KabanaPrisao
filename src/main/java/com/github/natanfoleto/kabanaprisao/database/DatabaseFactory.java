@@ -1,18 +1,28 @@
 package com.github.natanfoleto.kabanaprisao.database;
 
+import com.github.natanfoleto.kabanaprisao.KabanaPrisao;
 import com.github.natanfoleto.kabanaprisao.entities.Database;
+import com.github.natanfoleto.kabanaprisao.helpers.FileHelper;
 import com.github.natanfoleto.kabanaprisao.storages.DatabaseStorage;
 
+import java.io.File;
 import java.sql.*;
+import java.util.Objects;
 
 public class DatabaseFactory {
+    private static final File file = new File(KabanaPrisao.getInstance().getDataFolder(), "database");
+
     public static Connection createConnection() {
         Database database = DatabaseStorage.getDatabase();
 
-        if ("MYSQL".equals(database.getType())) {
-            return buildMYSQL(database);
+        switch (database.getType()) {
+            case "MYSQL":
+                return buildMYSQL(database);
+            case "SQLITE":
+                return buildSQLite(database);
+            default:
+                throw new UnsupportedOperationException("Database type unsupported!");
         }
-        throw new UnsupportedOperationException("Database type unsupported!");
     }
 
     private static Connection buildMYSQL(Database database) {
@@ -23,6 +33,18 @@ public class DatabaseFactory {
                     database.getPassword()
             );
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Connection buildSQLite(Database database) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+
+            FileHelper.createFileIfNotExists(new File(file, Objects.requireNonNull(database.getFilename())));
+
+            return DriverManager.getConnection(database.getUrl());
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
