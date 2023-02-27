@@ -127,12 +127,8 @@ public class Arrest {
         PrisonCooldown.create(targetName, prisonTime);
         PrisonerRepository.createPrisoner(prisoner);
 
-        if (PrisonerLogRepository.getCountUserByName(targetName) == 0)
-            PrisonerLogRepository.createPrisonerLog(targetName);
-        else {
-            PrisonersLogStorage.incrementTimesArrested(targetName);
-            PrisonerLogRepository.updateTimes(targetName);
-        }
+        PrisonersLogStorage.incrementTimesArrested(targetName);
+        PrisonerLogRepository.updateTimes(targetName);
 
         target.teleport(prision.getLocation());
 

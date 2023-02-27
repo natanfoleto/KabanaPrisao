@@ -1,5 +1,8 @@
 package com.github.natanfoleto.kabanaprisao.listeners;
 
+import com.github.natanfoleto.kabanaprisao.database.repositories.PrisonerLogRepository;
+import com.github.natanfoleto.kabanaprisao.entities.PrisonerLog;
+import com.github.natanfoleto.kabanaprisao.storages.PrisonersLogStorage;
 import com.github.natanfoleto.kabanaprisao.storages.PrisonersStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -24,6 +27,14 @@ public class PlayerListener implements Listener {
             player.teleport(
                     PrisonersStorage.getPrisoners().get(player.getName())
                             .getPrision().getLocation()
+            );
+        }
+
+        if (PrisonerLogRepository.getCountUserByName(player.getName()) == 0) {
+            PrisonerLogRepository.createPrisonerLog(player.getName());
+            PrisonersLogStorage.setPrisonerLog(
+                    player.getName(),
+                    new PrisonerLog(player.getName(), 0)
             );
         }
     }
