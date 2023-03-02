@@ -24,6 +24,7 @@ public class PrisonerRepository {
                     "`icon_slot` SMALLINT NOT NULL, " +
                     "`prision_time` int NOT NULL, " +
                     "`time_left` int NOT NULL, " +
+                    "`bail` int NOT NULL, " +
                     "`reason` VARCHAR(200), " +
                     "`status` SMALLINT DEFAULT 1, " +
                     "PRIMARY KEY (`nome`, `prisao`) " +
@@ -68,8 +69,8 @@ public class PrisonerRepository {
 
         try {
             stmt = conn.prepareStatement("REPLACE INTO presos" +
-                    "(`nome`, `prisao`, `icon_slot`, `prision_time`, `time_left`, `reason`) " +
-                    "VALUES(?, ?, ?, ?, ?, ?)"
+                    "(`nome`, `prisao`, `icon_slot`, `prision_time`, `time_left`, `bail`, `reason`) " +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?)"
             );
 
             stmt.setString(1, prisoner.getPlayer().getName());
@@ -77,7 +78,8 @@ public class PrisonerRepository {
             stmt.setInt(3, prisoner.getIconSlot());
             stmt.setInt(4, prisoner.getPrisionTime());
             stmt.setInt(5, prisoner.getPrisionTime());
-            stmt.setString(6, prisoner.getReason());
+            stmt.setInt(6, prisoner.getBail());
+            stmt.setString(7, prisoner.getReason());
 
             stmt.executeUpdate();
         } catch (SQLException e) {

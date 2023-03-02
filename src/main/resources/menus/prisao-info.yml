@@ -31,8 +31,13 @@ Itens:
     Name: '§cMinhas dividas'
     Lore:
       - ''
-      - '§7Fiança'
-      - '§cEm breve!'
+      - '§7Pague a fiança e seja solto.'
+      - ''
+      - '§7Valor da fiança'
+      - '§c{bail}'
+      - ''
+      - '§7Botão §fesquerdo§7 para pagar.'
+      - '§7Ou use o comando §f/fianca'
 
 # Placeholders
 ##
@@ -40,3 +45,4 @@ Itens:
 # {amount} = Quantidade de vezes que jogador foi preso
 # {time} = Tempo de prisão
 # {timeLeft} = Tempo restante de prisão
+# {bail} = Valor da fiança

@@ -8,6 +8,7 @@ import com.github.natanfoleto.kabanaprisao.schedulers.PrisonCooldown;
 import com.github.natanfoleto.kabanaprisao.storages.PrisionStorage;
 import com.github.natanfoleto.kabanaprisao.storages.PrisonersLogStorage;
 import com.github.natanfoleto.kabanaprisao.storages.PrisonersStorage;
+import com.github.natanfoleto.kabanaprisao.utils.TypeUtils;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.command.Context;
 import org.bukkit.Bukkit;
@@ -25,13 +26,14 @@ public class Arrest {
             name = "arrest",
             aliases = {"prender"},
             permission = "kabanaprisao.arrest",
-            usage = "prender <jogador> <tempo> [razao]"
+            usage = "prender <jogador> <tempo> <fianca> [razao]"
     )
 
     public void onArrest(
             Context<CommandSender> context,
             String targetName,
-            String time
+            String time,
+            String bail
     ) {
         CommandSender sender = context.getSender();
 
@@ -45,6 +47,18 @@ public class Arrest {
 
         if (prisonTime == 0) {
             getMessages().getStringList("Prisao.TempoCorreto").forEach(context::sendMessage);
+
+            return;
+        }
+
+        if (!TypeUtils.isInteger(bail)) {
+            sender.sendMessage(getMessages().getString("Prisao.FiancaIncorreto"));
+
+            return;
+        }
+
+        if (Integer.parseInt(bail) <= 0) {
+            sender.sendMessage(getMessages().getString("Prisao.FiancaMaiorQueZero"));
 
             return;
         }
@@ -90,9 +104,10 @@ public class Arrest {
 
         String reason = "§cMotivo não informado.";
 
-        if (context.getArgs().length > 2) {
+        if (context.getArgs().length > 3) {
             List<String> newArgs = new LinkedList<>(Arrays.asList(context.getArgs()));
 
+            newArgs.remove(0);
             newArgs.remove(0);
             newArgs.remove(0);
 
@@ -120,6 +135,7 @@ public class Arrest {
                 prision,
                 iconSlot.intValue(),
                 prisonTime,
+                Integer.parseInt(bail),
                 reason
         );
 

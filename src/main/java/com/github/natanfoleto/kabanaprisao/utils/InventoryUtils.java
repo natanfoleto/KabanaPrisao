@@ -11,8 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static com.github.natanfoleto.kabanaprisao.loaders.MenuLoader.*;
 import static com.github.natanfoleto.kabanaprisao.loaders.SettingsLoader.*;
@@ -131,6 +133,9 @@ public class InventoryUtils {
 
             int prisonTime = prisoner.getPrisionTime();
             int timeLeft = PrisonCooldown.getCooldown(prisoner.getName());
+            int bail = prisoner.getBail();
+            Locale localeBR = new Locale("pt","BR");
+            NumberFormat currencyBail = NumberFormat.getCurrencyInstance(localeBR);
             int timesArrested = PrisonersLogStorage.getPrisonersLog().get(prisoner.getName()).getTimesArrested();
 
             List<String> lorePrisionTime = new ArrayList<>();
@@ -140,6 +145,7 @@ public class InventoryUtils {
                         item
                                 .replace("{time}", getPrisonTimeText(prisonTime))
                                 .replace("{timeLeft}", getPrisonTimeText(timeLeft))
+                                .replace("{bail}", currencyBail.format(bail))
                                 .replace("{amount}", String.valueOf(timesArrested))
                                 .replace("{reason}", prisoner.getReason())
                 );
@@ -219,9 +225,23 @@ public class InventoryUtils {
                 (short) getPrisaoInfo().getInt("Itens.TempoDePrisao.Data")
         );
 
+        List<String> loreMyDebts = new ArrayList<>();
+
+        if (PrisonersStorage.getPrisoners().containsKey(player.getName())) {
+            Prisoner prisoner = PrisonersStorage.getPrisoners().get(player.getName());
+
+            int bail = prisoner.getBail();
+
+            Locale localeBR = new Locale("pt","BR");
+            NumberFormat currencyBail = NumberFormat.getCurrencyInstance(localeBR);
+
+            for (String item : getPrisaoInfo().getStringList("Itens.MinhasDividas.Lore"))
+                loreMyDebts.add(item.replace("{bail}", currencyBail.format(bail)));
+        } else loreMyDebts.add("§7Você não está preso para pagar fiança.");
+
         ItemStack myDebts = ItemUtils.createItemMenu(
                 getPrisaoInfo().getString("Itens.MinhasDividas.Name"),
-                getPrisaoInfo().getStringList("Itens.MinhasDividas.Lore"),
+                loreMyDebts,
                 getPrisaoInfo().getInt("Itens.MinhasDividas.Id"),
                 (short) getPrisaoInfo().getInt("Itens.MinhasDividas.Data")
         );

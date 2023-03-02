@@ -1,13 +1,10 @@
 package com.github.natanfoleto.kabanaprisao.listeners;
 
-import com.github.natanfoleto.kabanaprisao.database.repositories.PrisonerRepository;
 import com.github.natanfoleto.kabanaprisao.entities.Prision;
 import com.github.natanfoleto.kabanaprisao.entities.Prisoner;
-import com.github.natanfoleto.kabanaprisao.managers.PrisionManager;
 import com.github.natanfoleto.kabanaprisao.storages.PrisionStorage;
 import com.github.natanfoleto.kabanaprisao.storages.PrisonersStorage;
 import com.github.natanfoleto.kabanaprisao.utils.InventoryUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -16,14 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.io.IOException;
-
 import static com.github.natanfoleto.kabanaprisao.loaders.MenuLoader.*;
-import static com.github.natanfoleto.kabanaprisao.loaders.SettingsLoader.*;
 
 public class InventoryListener implements Listener {
     @EventHandler
-    public void onClickInventory(InventoryClickEvent e) throws IOException {
+    public void onClickInventory(InventoryClickEvent e) {
         if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR)
             return;
 
@@ -92,16 +86,8 @@ public class InventoryListener implements Listener {
                 }
 
                 // Clicou numa prisão com botão direito (Deleta a prisão)
-                if (e.isRightClick()) {
-                    PrisionStorage.delPrision(prision.getName());
-                    PrisionManager.deletePrisionYaml(prision.getName());
-
-                    e.getInventory().setItem(e.getSlot(), null);
-
-                    p.sendMessage(getMessages().getString("Prisao.Deletada"));
-
-                    p.playSound(p.getLocation(), Sound.CLICK, 1, 2f);
-                }
+                if (e.isRightClick())
+                    p.chat("/unsetprision " + prision.getName());
             }
 
             // Menu de presos aberto
@@ -128,37 +114,17 @@ public class InventoryListener implements Listener {
                 if (prisoner == null)
                     return;
 
-                // Clicou num preso com botão direito (Deleta a prisão)
-                if (e.isRightClick()) {
-                    if (PrisionStorage.getExitLocation() == null) {
-                        p.sendMessage(getMessages().getString("Prisao.NenhumLocalSaida"));
-                        return;
-                    }
-
-                    PrisonersStorage.delPrisoner(prisoner.getName());
-                    PrisonerRepository.updateStatus(prisoner.getName());
-                    e.getInventory().setItem(e.getSlot(), null);
-
-                    Player target = Bukkit.getPlayer(prisoner.getName());
-
-                    if (target != null) {
-                        target.teleport(PrisionStorage.getExitLocation());
-                        target.sendMessage(getMessages().getString("Preso.FoiSoltoPelaStaff"));
-                        target.playSound(target.getLocation(), Sound.PORTAL_TRAVEL, 1, 2f);
-                    }
-
-                    p.sendMessage(getMessages().getString("Prisao.Soltou"));
-                    p.playSound(p.getLocation(), Sound.CLICK, 1, 2f);
-
-                    if (getConfig().getBoolean("AlertaJogadorSolto"))
-                        for (String item : getMessages().getStringList("Preso.AlertaSolto"))
-                            Bukkit.broadcastMessage(item.replace("{name}", prisoner.getName()));
-                }
+                // Clicou num preso com botão direito (Solta um preso)
+                if (e.isRightClick())
+                    p.chat("/release " + prisoner.getName());
             }
 
             // Menu de prisão info aberto
             if (e.getView().getTitle().equalsIgnoreCase(getPrisaoInfo().getString("Nome"))) {
-                e.setCancelled(true);
+                // Clicou na fiança (Paga a fiança)
+                if (e.getSlot() == getPrisaoInfo().getInt("Itens.MinhasDividas.Slot"))
+                    if (e.isLeftClick())
+                        p.chat("/bail");
             }
         }
     }

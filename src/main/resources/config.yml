@@ -6,9 +6,9 @@ Database:
   Sqlite:
     Filename: "database.db"
   Host: "localhost:3306"
-  Database: "database"
-  User: "user"
-  Password: "password"
+  Database: "kabana"
+  User: "root"
+  Password: "143010"
 
 # Gerais
 
@@ -20,6 +20,9 @@ AlertaJogadorSolto: true
 AlertaPresoEntrou: true
 # Mandar mensagem para todos quando um preso sair no servidor
 AlertaPresoSaiu: true
+
+# Mandar mensagem para todos quando um jogador pagar a fiança
+AlertaPagouFianca: true
 
 # Se 'true' o tempo de prisão dos jogadores vão diminuir somente se eles estiverem online
 DiminuirTempoOnline: true

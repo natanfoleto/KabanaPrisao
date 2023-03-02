@@ -16,6 +16,7 @@ public class PrisonerAdapter {
         final int iconSlot = rs.getInt("icon_slot");
         final int prisionTime = rs.getInt("prision_time");
         final int timeLeft = rs.getInt("time_left");
+        final int bail = rs.getInt("bail");
         final String reason = rs.getString("reason");
 
         Player player = Bukkit.getPlayer(name);
@@ -27,6 +28,7 @@ public class PrisonerAdapter {
                 prision,
                 iconSlot,
                 prisionTime,
+                bail,
                 reason
         );
 

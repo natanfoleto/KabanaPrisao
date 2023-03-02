@@ -10,6 +10,9 @@ Itens:
     - '§7Preso por §c{time}.'
     - '§7Faltam §c{timeLeft} §7para ser solto.'
     - ''
+    - '§7Valor da fiança'
+    - '§c{bail}'
+    - ''
     - '§7Motivo da prisão'
     - '§c{reason}'
     - ''
@@ -33,3 +36,4 @@ Voltar:
 # {timeLeft} = Tempo restante de prisão
 # {amount} = Quantidade de vezes preso
 # {reason} = Motivo da prisão
+# {bail} = Valor da fiança

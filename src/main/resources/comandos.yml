@@ -62,6 +62,12 @@ Comandos:
     Permissao: 'kabanaprisao.prision'
     Uso: '/prision'
 
+  bail:
+    Descricao: 'Paga a fiança e solta o jogador'
+    Aliases: 'fianca|pagarfianca|fiancapagar'
+    Permissao: 'kabanaprisao.bail'
+    Uso: '/fianca'
+
   kabanaprisao:
     Descricao: 'Recarrega o plugin KabanaPrisao'
     Aliases: 'prisaoreload|reloadprisao'

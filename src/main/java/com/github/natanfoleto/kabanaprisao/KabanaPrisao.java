@@ -50,7 +50,8 @@ public final class KabanaPrisao extends JavaPlugin {
                 new Prisions(),
                 new SetPrision(),
                 new PrisionInfo(),
-                new Reload()
+                new Reload(),
+                Bukkit.getPluginManager().getPlugin("yEconomy").isEnabled() ? new Bail() : null
         );
     }
 

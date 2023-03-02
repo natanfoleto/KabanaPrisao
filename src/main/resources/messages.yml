@@ -5,6 +5,7 @@
 # {name} = Nome do jogador
 # {command} = Comando enviado dentro da prisão
 # {reason} = Motivo da prisão
+# {bail} = Valor da fiança
 
 # Mensagens do plugin
 Plugin:
@@ -35,6 +36,12 @@ Prisao:
     - '§71h ⇒ 1 hora'
     - '§71d ⇒ 1 dia'
     - '§71mm ⇒ 1 mês'
+  FiancaIncorreto: '§cA fiança precisa ser um número inteiro.'
+  FiancaMaiorQueZero: '§cA fiança precisa ser maior que 0.'
+  VoceNaoEstaPreso: '§cVocê não está preso para pagar fiança.'
+  SaldoInsuficiente: '§cVocê não tem dinheiro suficiente para pagar a fiança.'
+  PagouFianca: '§aVocê pagou a fiança.'
+  AlertaPagouFianca: '§a{name} §7pagou a fiança de §a{bail} §7e foi solto.'
 
 Preso:
   StatusPreso: '§cPreso'
